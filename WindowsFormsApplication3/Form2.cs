@@ -27,6 +27,7 @@ namespace WindowsFormsApplication3
         public Form2()
         {
             InitializeComponent();
+            cartreset();
         }
         class Node
         {
@@ -109,7 +110,7 @@ namespace WindowsFormsApplication3
         linkedlist l = new linkedlist();
         
 
-         private void AddRiceBtn(object sender, EventArgs e)
+        private void AddRiceBtn(object sender, EventArgs e)
             {
              //add rice//
             if (r.Count() == 0)
@@ -120,14 +121,15 @@ namespace WindowsFormsApplication3
             else if (r.Count() >0)
             {
                 r.minize();
+                Carttemp("r");
                 t += r.price();
                 l.add(r.name(), r.price());//add product in linked list//
                 //to show num of product after press Add//
                 numofrice.Text = Convert.ToString(r.Count()) + "in stock";
             }
         }
-         private void Adddoilbtn(object sender, EventArgs e)
-            {
+        private void Adddoilbtn(object sender, EventArgs e)
+        {
             //oil//
             if (o.Count() == 0)
             {
@@ -137,14 +139,15 @@ namespace WindowsFormsApplication3
             else if (o.Count() > 0)
             {
                 o.minize();
+                Carttemp("o");
                 t += o.price();
                 l.add(o.name(), o.price());//add product in linked list//
                 //to show num of product after press Add//
                 numofoil.Text = Convert.ToString(o.Count()) + "in stock";
             }
         }
-         private void AddmeatBtn(object sender, EventArgs e)
-            {
+        private void AddmeatBtn(object sender, EventArgs e)
+        {
             //meat//
             if (M.Count() == 0)
             {
@@ -154,14 +157,15 @@ namespace WindowsFormsApplication3
             else if (M.Count() > 0)
             {
                 M.minize();
+                Carttemp("M");
                 t += M.price();
                 l.add(M.name(), M.price());//add product in linked list//
                 //to show num of product after press Add//
                 numofmeat.Text = Convert.ToString(M.Count()) + "in stock";
             }
         }
-         private void AddsugarBtn(object sender, EventArgs e)
-            {
+        private void AddsugarBtn(object sender, EventArgs e)
+        {
             //sugar//
             if (s.Count() == 0)
             {
@@ -171,6 +175,7 @@ namespace WindowsFormsApplication3
             else if (s.Count() > 0)
             {
                 s.minize();
+                Carttemp("s");
                 t += s.price();
                 l.add(s.name(), s.price());//add product in linked list//
                 //to show num of product after press Add//
@@ -179,20 +184,21 @@ namespace WindowsFormsApplication3
         }
          private void AddPastaBtn(object sender, EventArgs e)
             {
-                //pasta//
-                if (p.Count() == 0)
-                {
-                    numofpasta.Text = Convert.ToString(p.Count()) + "in stock";
-                    MessageBox.Show("out of stock");
-                }
-                else if (p.Count() > 0)
-                {
-                    p.minize();
-                    t += p.price();
-                    l.add(p.name(), p.price());//add product in linked list//
+            //pasta//
+            if (p.Count() == 0)
+            {
+                numofpasta.Text = Convert.ToString(p.Count()) + "in stock";
+                MessageBox.Show("out of stock");
+            }
+            else if (p.Count() > 0)
+            {
+                p.minize();
+                Carttemp("p");
+                t += p.price();
+                l.add(p.name(), p.price());//add product in linked list//
                 //to show num of product after press Add//
                 numofpasta.Text = Convert.ToString(p.Count()) + "in stock";
-                }
+            }
             
         }
          private void AddFishBtn(object sender, EventArgs e)
@@ -206,6 +212,7 @@ namespace WindowsFormsApplication3
             else if (f.Count() > 0)
             {
                 f.minize();
+                Carttemp("f");
                 t += f.price();
                 l.add(f.name(), f.price());//add product in linked list//
                 //to show num of product after press Add//
@@ -222,7 +229,8 @@ namespace WindowsFormsApplication3
             }
             else if (c.Count() > 0)
             {
-                c.minize();
+                c.minize();            
+                Carttemp("c");
                 t += c.price();
                 l.add(c.name(), c.price());//add product in linked list//
                 //to show num of product after press Add//
@@ -240,6 +248,7 @@ namespace WindowsFormsApplication3
             else if (m.Count() > 0)
             {
                 m.minize();
+                Carttemp("m");
                 t += m.price();
                 l.add(m.name(), m.price());//add product in linked list//
                 //to show num of product after press Add//
@@ -257,6 +266,7 @@ namespace WindowsFormsApplication3
             else if (w.Count() > 0)
             {
                 w.minize();
+                Carttemp("w");
                 t += w.price();
                 l.add(w.name(), w.price());//add product in linked list//
                 //to show num of product after press Add//
@@ -271,6 +281,7 @@ namespace WindowsFormsApplication3
                 return;
             }
             MessageBox.Show("Total price: " + t);
+            cartreset();
             if (t != 0)
             {
                 pictureBox12.CreateGraphics().FillRectangle(Brushes.OrangeRed, 0, 0, 15, 15);
@@ -311,7 +322,45 @@ namespace WindowsFormsApplication3
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
+            OnClosing();
             Program.f1.Close();
+        }
+
+        private void OnClosing()
+        {
+            using (FileStream fs = new FileStream("stock.txt", FileMode.Create, FileAccess.Write))
+            {
+                StreamWriter sr = new StreamWriter(fs);
+                sr.WriteLine(r.Countof);
+                sr.WriteLine(w.Countof);
+                sr.WriteLine(f.Countof);
+                sr.WriteLine(c.Countof);
+                sr.WriteLine(m.Countof);
+                sr.WriteLine(p.Countof);
+                sr.WriteLine(s.Countof);
+                sr.WriteLine(o.Countof);
+                sr.WriteLine(M.Countof);
+                sr.Flush();
+            }
+        }
+        private void Carttemp(string name)
+        {
+            using(FileStream fs = new FileStream("Carttemp.txt", FileMode.Append, FileAccess.Write))
+            {
+                StreamWriter sr = new StreamWriter(fs);
+                sr.WriteLine(name);
+                sr.Flush();
+            }
+        }
+
+        private void cartreset()
+        {
+            using(FileStream fs = new FileStream("Carttemp.txt", FileMode.Create, FileAccess.Write))
+            {
+                StreamWriter sr = new StreamWriter(fs);
+                sr.Write("");
+                sr.Flush();
+            }
         }
     }
 }

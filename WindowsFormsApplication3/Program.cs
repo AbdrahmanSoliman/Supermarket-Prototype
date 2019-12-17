@@ -23,7 +23,6 @@ namespace WindowsFormsApplication3
             f2 = new Form2();
             f3 = new Form3();
             Application.Run(f1);
-            
         }
     }
 }

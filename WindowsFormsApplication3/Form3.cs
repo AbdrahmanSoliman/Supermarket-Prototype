@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace WindowsFormsApplication3
 {
@@ -298,8 +299,27 @@ namespace WindowsFormsApplication3
             Program.f2.Show();
         }
 
+        private void OnClosing()
+        {
+            using (FileStream fs = new FileStream("stock.txt", FileMode.Create, FileAccess.Write))
+            {
+                StreamWriter sr = new StreamWriter(fs);
+                sr.WriteLine(r.Countof);
+                sr.WriteLine(w.Countof);
+                sr.WriteLine(f.Countof);
+                sr.WriteLine(c.Countof);
+                sr.WriteLine(m.Countof);
+                sr.WriteLine(p.Countof);
+                sr.WriteLine(s.Countof);
+                sr.WriteLine(o.Countof);
+                sr.WriteLine(M.Countof);
+                sr.Flush();
+            }
+        }
+
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
+            OnClosing();
             Program.f1.Close();
         }
     }
