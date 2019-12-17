@@ -25,7 +25,6 @@ namespace WindowsFormsApplication3
             {
                 this.Hide();
                 Program.f2.Show();
-                textBox1.Text = textBox2.Text = "";
             }
             else if (textBox1.Text == "" && textBox2.Text == "")
             {
@@ -35,13 +34,12 @@ namespace WindowsFormsApplication3
             {
                 this.Hide();
                 Program.f3.Show();
-                textBox1.Text = textBox2.Text = "";
             }
             else
             {
                 MessageBox.Show("Invalid username/password");
-                textBox1.Text = textBox2.Text = "";
             }
+            textBox1.Text = textBox2.Text = "";
         }
 
         private void button2_Click(object sender, EventArgs e)

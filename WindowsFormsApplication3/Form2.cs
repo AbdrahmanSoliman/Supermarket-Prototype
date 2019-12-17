@@ -80,21 +80,21 @@ namespace WindowsFormsApplication3
             }
             public void display()
             {
-                string stock = "";
+                string cart = "Your Order: \n\n\t";
                 Node q = start;
 
                 if (start == null)
                 {
-                    MessageBox.Show("Stock is empty");
+                    MessageBox.Show("Cart is empty");
                 }
                 else
                 {
                     while (q != null)
                     {
-                        stock += "product :" + q.DataN+"    ,    " + "price :" + q.DataP+"\n";
+                        cart += q.DataN + "\n\tPrice " + q.DataP + "\n\n\t";
                         q = q.Next;
                     }
-                    MessageBox.Show(stock);
+                    MessageBox.Show(cart);
 
                 }
 
@@ -265,7 +265,12 @@ namespace WindowsFormsApplication3
         }
          private void totalOrderBtn(object sender, EventArgs e)
             {
-            MessageBox.Show("the cost of order is " + t);
+            if (t == 0)
+            {
+                MessageBox.Show("Fill your cart firstly");
+                return;
+            }
+            MessageBox.Show("Total price: " + t);
             if (t != 0)
             {
                 pictureBox12.CreateGraphics().FillRectangle(Brushes.OrangeRed, 0, 0, 15, 15);
@@ -276,6 +281,7 @@ namespace WindowsFormsApplication3
             pictureBox12.CreateGraphics().Clear(Color.White);
             t = 0;
             l.clr();
+            MessageBox.Show("Your cart has been reset");
             }
          private void sowinmychart_pic_click(object sender, EventArgs e)
             {
@@ -285,15 +291,15 @@ namespace WindowsFormsApplication3
         private void shownumberofproductBtn(object sender, EventArgs e)
         {
             //number of any product in stock//
-            numofrice.Text = Convert.ToString(r.Count())+"in stock";
-            numofsugar.Text = Convert.ToString(s.Count()) + "in stock";
-            numofmeat.Text = Convert.ToString(M.Count()) + "in stock";
-            numofmilk.Text = Convert.ToString(m.Count()) + "in stock";
-            numofpasta.Text = Convert.ToString(p.Count())+"in stock";
-            numofwater.Text = Convert.ToString(w.Count()) + "in stock";
-            numoffish.Text = Convert.ToString(f.Count()) + "in stock";
-            numofchicken.Text = Convert.ToString(c.Count()) + "in stock";
-            numofoil.Text= Convert.ToString(o.Count()) + "in stock";
+            numofrice.Text = r.Count()+"in stock";
+            numofsugar.Text = s.Count() + "in stock";
+            numofmeat.Text = M.Count() + "in stock";
+            numofmilk.Text = m.Count() + "in stock";
+            numofpasta.Text = p.Count()+"in stock";
+            numofwater.Text = w.Count() + "in stock";
+            numoffish.Text = f.Count() + "in stock";
+            numofchicken.Text = c.Count()+ "in stock";
+            numofoil.Text= o.Count()+ "in stock";
         }
 
         private void Admin_page_btn_Click(object sender, EventArgs e)
