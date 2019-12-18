@@ -88,44 +88,51 @@ namespace WindowsFormsApplication3
         }
         private void cartLoader()
         {
+            try
+            {
                 using (FileStream fs = new FileStream("Carttemp.txt", FileMode.Open, FileAccess.Read))
                 {
                     StreamReader sr = new StreamReader(fs);
-                while (true)
-                {
-                    switch(sr.ReadLine())
+                    while (true)
                     {
-                        case "r":
-                            r.Countof++;
-                            break;
-                        case "w":
-                            w.Countof++;
-                            break;
-                        case "f":
-                            f.Countof++;
-                            break;
-                        case "c":
-                            c.Countof++;
-                            break;
-                        case "m":
-                            m.Countof++;
-                            break;
-                        case "p":
-                            p.Countof++;
-                            break;
-                        case "s":
-                            s.Countof++;
-                            break;
-                        case "o":
-                            o.Countof++;
-                            break;
-                        case "M":
-                            M.Countof++;
-                            break;
-                        default:
-                            return;
+                        switch (sr.ReadLine())
+                        {
+                            case "r":
+                                r.Countof++;
+                                break;
+                            case "w":
+                                w.Countof++;
+                                break;
+                            case "f":
+                                f.Countof++;
+                                break;
+                            case "c":
+                                c.Countof++;
+                                break;
+                            case "m":
+                                m.Countof++;
+                                break;
+                            case "p":
+                                p.Countof++;
+                                break;
+                            case "s":
+                                s.Countof++;
+                                break;
+                            case "o":
+                                o.Countof++;
+                                break;
+                            case "M":
+                                M.Countof++;
+                                break;
+                            default:
+                                return;
+                        }
                     }
                 }
+            }
+            catch
+            {
+                // File Not Created Yet
             }
         }
         private void cartreset()
